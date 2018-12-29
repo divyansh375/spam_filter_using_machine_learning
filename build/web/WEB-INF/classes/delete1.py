@@ -1,0 +1,18 @@
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import MultinomialNB
+from sklearn import metrics
+import pandas as pd
+df=pd.read_csv("C:\\Users\\DIVYANSH\\Documents\\NetBeansProjects\\spam\\src\\java\\spam.csv",encoding='latin-1')
+df=df.loc[:, ~df.columns.str.contains('^Unnamed')]
+X_train, X_test, y_train, y_test = train_test_split(df.iloc[:,1], df.iloc[:,0], test_size=0.33, random_state=53)
+count_vectorizer = CountVectorizer(stop_words='english')
+count_train = count_vectorizer.fit_transform(X_train)
+test="Free offer valid till today !!!!  purchase now!!!!"
+test=[test]
+count_test = count_vectorizer.transform(test)
+nb_classifier=MultinomialNB()
+nb_classifier.fit(count_train,y_train)
+pred=nb_classifier.predict(count_test)
+print(pred)
+

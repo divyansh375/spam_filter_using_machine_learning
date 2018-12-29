@@ -1,0 +1,7 @@
+test=[test]
+count_test = count_vectorizer.transform(test)
+nb_classifier=MultinomialNB()
+nb_classifier.fit(count_train,y_train)
+pred=nb_classifier.predict(count_test)
+print(pred)
+
